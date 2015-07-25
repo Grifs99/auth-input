@@ -23,12 +23,13 @@ class Database
     */
     public function addUser(){}
     public function removeUser(){}
-    public function loginUser(){}
+    public function getUser(){}
 
     /**
      * Data
      */
     public function addData(){}
-    public function editData(){}
-    public function deleteData(){}
+    public function updateData(){}
+    public function removeData(){}
+    public function getData(){}
 }

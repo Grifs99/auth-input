@@ -3,3 +3,6 @@
 
 #phpstorm project data
 .idea/
+
+#sqlite
+*.sqlite3
