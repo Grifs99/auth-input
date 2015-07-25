@@ -2,3 +2,4 @@
 include ("src/Database.php");
 $db = new Database();
 $db->createTables();
+echo "Done!";

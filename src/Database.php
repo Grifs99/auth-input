@@ -14,22 +14,70 @@ class Database
 
     public function createTables()
     {
-        $this->conn->exec("CREATE TABLE IF NOT EXISTS users (username TEXT, password TEXT)");
-        $this->conn->exec("CREATE TABLE IF NOT EXISTS data (content TEXT)");
+        $this->conn->exec("CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT, 
+            password TEXT)");
+        $this->conn->exec("CREATE TABLE IF NOT EXISTS data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            content TEXT)");
     }
 
     /**
     * Users
     */
-    public function addUser(){}
-    public function removeUser(){}
-    public function getUser(){}
+    public function addUser($username, $password)
+    {
+        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    public function removeUser($id)
+    {
+        $sql = "DELETE FROM users WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+    public function getUser()
+    {
+        $sql = "SELECT id, username, password FROM data";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     /**
      * Data
      */
-    public function addData(){}
-    public function updateData(){}
-    public function removeData(){}
-    public function getData(){}
+    public function addData($content)
+    {
+        $sql = "INSERT INTO users (content) VALUES (:content)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+        $stmt->execute();
+
+    }
+    public function updateData($id, $content)
+    {
+        $sql = "UPDATE data SET content=:content WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+    public function removeData($id)
+    {
+        $sql = "DELETE FROM data WHERE id=:id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+    public function getData()
+    {
+        $sql = "SELECT content FROM data";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
