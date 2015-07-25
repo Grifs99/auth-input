@@ -1,0 +1,5 @@
+#linux backup files
+*~
+
+#phpstorm project data
+.idea/
