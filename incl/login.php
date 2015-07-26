@@ -10,7 +10,7 @@
         <div class="input-group">
             <input type="password" class="form-control" placeholder="Password">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Go!</button>
+            <button class="btn btn-success" type="button">Go!</button>
           </span>
         </div>
     </div>

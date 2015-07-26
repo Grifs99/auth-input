@@ -14,7 +14,7 @@ include("src/Database.php");
     <body>
     <div class="container">
         <div class="row">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -29,6 +29,7 @@ include("src/Database.php");
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li><a href="?p=login">Login</a></li>
+                            <li><a href="?p=logout">Logout</a></li>
                             <li><a href="?p=register">Register</a></li>
                             <li><a href="?p=viewData">View data</a></li>
                             <li><a href="?p=addData">Add data</a></li>
@@ -37,7 +38,6 @@ include("src/Database.php");
                 </div>
             </nav>
         </div>
-
             <div class="row">
                 <div class="col-sm-12 space">
                     <?php if(isset($_GET['p'])) { include('incl/'.$_GET['p'].'.php'); } ?>
