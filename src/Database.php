@@ -53,7 +53,7 @@ class Database
      */
     public function addData($content)
     {
-        $sql = "INSERT INTO users (content) VALUES (:content)";
+        $sql = "INSERT INTO data (content) VALUES (:content)";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':content', $content, PDO::PARAM_STR);
         $stmt->execute();
