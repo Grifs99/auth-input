@@ -12,6 +12,9 @@ class Database
         $this->conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
     }
 
+    /**
+    * Creates tables for database
+    */
     public function createTables()
     {
         $this->conn->exec("CREATE TABLE IF NOT EXISTS users (
@@ -21,6 +24,10 @@ class Database
         $this->conn->exec("CREATE TABLE IF NOT EXISTS data (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             content TEXT)");
+        $this->conn->exec("CREATE TABLE IF NOT EXISTS sessions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            session TEXT, 
+            username TEXT)");
     }
 
     /**
@@ -49,8 +56,8 @@ class Database
     }
 
     /**
-     * Data
-     */
+    * Data
+    */
     public function addData($content)
     {
         $sql = "INSERT INTO data (content) VALUES (:content)";
@@ -79,5 +86,32 @@ class Database
         $sql = "SELECT content FROM data";
         $stmt = $this->conn->prepare($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+    * Sessions
+    */
+    public function addSession($username, $session)
+    {
+        $sql = "INSERT INTO sessions (session, username) VALUES (:session, :username)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    public function removeSession($session)
+    {
+        $sql = "DELETE FROM sessions WHERE session=:session";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    public function getUserSession($session)
+    {
+        $sql = "SELECT username FROM sessions WHERE sessions=:session";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':session', $session, PDO::PARAM_STR);
+        $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $user['username'];
     }
 }
