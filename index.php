@@ -1,6 +1,4 @@
-<?php
-include("src/Database.php");
-?>
+<?php include ('src/Autoload.php'); ?>
 <!doctype html>
     <head>
         <meta charset="utf-8">
