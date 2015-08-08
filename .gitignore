@@ -6,3 +6,6 @@
 
 #sqlite
 *.sqlite3
+
+#composer vendor folder
+vendor/*
