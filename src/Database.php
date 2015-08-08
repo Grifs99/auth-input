@@ -52,6 +52,7 @@ class Database
     {
         $sql = "SELECT id, username, password FROM data";
         $stmt = $this->conn->prepare($sql);
+        print_r($stmt);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -83,9 +84,12 @@ class Database
     }
     public function getData()
     {
-        $sql = "SELECT content FROM data";
+        $data = array();
+        $sql = "SELECT id, content FROM data";
         $stmt = $this->conn->prepare($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     /**
