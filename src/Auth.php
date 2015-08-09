@@ -4,7 +4,7 @@
  * Class Auth
  * Handles user registration, login
  */
-include('Database.php');
+//include('Database.php');
 class Auth
 {
     private $db;

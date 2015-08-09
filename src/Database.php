@@ -50,10 +50,12 @@ class Database
     }
     public function getUser()
     {
-        $sql = "SELECT id, username, password FROM data";
+        $data = array();
+        $sql = "SELECT id, username, password FROM users";
         $stmt = $this->conn->prepare($sql);
-        print_r($stmt);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     /**
