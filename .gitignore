@@ -9,3 +9,5 @@
 
 #composer vendor folder
 vendor/*
+
+*.phar
