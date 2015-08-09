@@ -1,9 +1,13 @@
-<?php include ('src/Autoload.php'); ?>
+<?php 
+session_start();
+include ('src/Autoload.php');
+$db = new Database();
+?>
 <!doctype html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>atuh-input</title>
+        <title>auth-input</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -23,14 +27,19 @@
                         </button>
                         <a class="navbar-brand" href="#">Brand</a>
                     </div>
-
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a href="?p=login">Login</a></li>
-                            <li><a href="?p=logout">Logout</a></li>
+                            <li>
+                            <?php if(isset($_SESSION['SESS_USERNAME'])): ?>
+                                <a href="?p=logout">Logout</a>
+                            <?php else: ?>
+                                <a href="?p=login">Login</a>
+                            <?php endif; ?>
+                            </li>
                             <li><a href="?p=register">Register</a></li>
                             <li><a href="?p=viewData">View data</a></li>
                             <li><a href="?p=addData">Add data</a></li>
+                            <li><a><?php if(isset($_SESSION['SESS_USERNAME'])) { echo 'Hello ' . $_SESSION['SESS_USERNAME']; }?></a></li>
                         </ul>
                     </div>
                 </div>

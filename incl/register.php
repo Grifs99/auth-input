@@ -1,7 +1,6 @@
 <?php
 if (isset($_POST['submit-registration']))
 {
-    $db = new Database();
     $auth = new Auth($db);
     $auth->addUser($_POST['username'], $_POST['password1'], $_POST['password2']);
 }

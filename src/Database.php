@@ -48,12 +48,21 @@ class Database
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
-    public function getUser()
+    public function getAllUsers()
     {
         $data = array();
         $sql = "SELECT id, username, password FROM users";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
+    public function getUser($username)
+    {
+        $data = array();
+        $sql = "SELECT username, password FROM users WHERE username=:username LIMIT 1";
+        $stmt = $this->conn->prepare($sql);        
+        $stmt->execute(array(':username'=>$username));
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }

@@ -13,10 +13,15 @@ class Auth
     }
     public function login($username, $password)
     {
-    	$user = $this->db->getUser($username, $password);
-    	if (($username === $user['username']) && (verifyHash($password, $user['password']))) {
-    		$this->addSession($username);
-    		return true;
+    	$user = $this->db->getUser($username);
+
+    	if (($username === $user[0]['username']) && (password_verify($password, $user[0]['password']))) {
+    		//$this->addSession($username);
+    		session_regenerate_id();            
+            $_SESSION['SESS_USERNAME'] = $user[0]['username'];  
+            $_SESSION['SESS_ID'] = uniqid();            
+            session_write_close();
+            return true;
    		} else {
    			return false;
    		}
@@ -52,11 +57,11 @@ class Auth
     }
     public function removeSession()
     {
-		$this->db->removeSession(session_id());
-    	session_destroy();
-		session_unset();
+        session_destroy();
+        session_unset();
+		$this->db->removeSession(session_id());    	
     }
-    public function verifyHash($password)
+    public function verifyHash($password,$passwordHash)
     {
     	return password_verify($password,$passwordHash);
     }
