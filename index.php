@@ -26,21 +26,22 @@ $app = new App();
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">Brand</a>
+                        <a class="navbar-brand" href="index.php">Brand</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li>
-                            <?php if(isset($_SESSION['SESS_USERNAME'])): ?>
-                                <a href="?p=logout">Logout</a>
-                            <?php else: ?>
-                                <a href="?p=login">Login</a>
-                            <?php endif; ?>
-                            </li>
+
                             <li><a href="?p=register">Register</a></li>
                             <li><a href="?p=viewData">View data</a></li>
                             <li><a href="?p=addData">Add data</a></li>
-                            <li><a><?php if(isset($_SESSION['SESS_USERNAME'])) { echo 'Hello ' . $_SESSION['SESS_USERNAME']; }?></a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <?php if(isset($_SESSION['SESS_USERNAME'])): ?>
+                            <li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <?php echo $_SESSION['SESS_USERNAME']; ?></a></li>
+                            <li><a href="?p=logout">Logout</a> </li>
+                            <?php else: ?>
+                            <li><a href="?p=login">Login</a></li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </div>
