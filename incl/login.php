@@ -3,8 +3,12 @@
 if (isset($_POST['submit-login']))
 {
     $auth = new Auth($db);
-    $auth->login($_POST['username'], $_POST['password']);
-    print_r($_SESSION);
+    $result = $auth->login($_POST['username'], $_POST['password']);
+    if ($result === true)
+    {
+        header("location: index.php");
+        exit;
+    }
 }
 ?>
 <div class="row">
