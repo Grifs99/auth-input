@@ -1,7 +1,11 @@
 <?php
-//TODO: check if folder is writable
-//TODO: check if sqlite extension is aviable
-include ("src/Database.php");
-$db = new Database();
-$db->createTables();
-echo "Done!";
+echo "Starting installation...<br>";
+if (is_writable("src") === false) {
+    echo "Folder 'src' is not writable. Modify permissions and run install.php again<br>";
+}
+else {
+    include ("src/Database.php");
+    $db = new Database();
+    $db->createTables();
+    echo "Database created!<br>";
+}
