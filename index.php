@@ -2,6 +2,7 @@
 session_start();
 include ('src/Autoload.php');
 $db = new Database();
+$app = new App();
 ?>
 <!doctype html>
     <head>
