@@ -1,4 +1,3 @@
-<?php $conn = new Database(); ?>
 <div class="row">
     <h2>Data</h2>
 </div>
@@ -10,10 +9,10 @@
                 <th>id</th>
                 <th>content</th>
             </tr>
-            <?php foreach($conn->getData() as $row):?>
+            <?php foreach($db->getData() as $row):?>
                 <tr>
-                    <td><?php echo $row['id']; ?></td>
-                    <td><?php echo $row['content']; ?></td>
+                    <td><?php echo $app->escape($row['id']); ?></td>
+                    <td><?php echo $app->escape($row['content']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </table>
