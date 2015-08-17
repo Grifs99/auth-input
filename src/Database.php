@@ -60,9 +60,10 @@ class Database
     public function getUser($username)
     {
         $data = array();
-        $sql = "SELECT username, password FROM users WHERE username=:username LIMIT 1";
-        $stmt = $this->conn->prepare($sql);        
-        $stmt->execute(array(':username'=>$username));
+        $sql = "SELECT username, password FROM users WHERE username=:username";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
     }

@@ -3,6 +3,8 @@ if (isset($_POST['logout-submit']))
 {
 	$auth = new Auth($db);
 	$auth->logout();
+	header('Location:  ./', true, 302);
+    die();
 }
 ?>
 <div class="row">

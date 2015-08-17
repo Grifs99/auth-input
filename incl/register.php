@@ -2,12 +2,29 @@
 if (isset($_POST['submit-registration']))
 {
     $auth = new Auth($db);
-    $auth->addUser($_POST['username'], $_POST['password1'], $_POST['password2']);
+    $error = $auth->addUser($_POST['username'], $_POST['password1'], $_POST['password2']);
+    if ($error) {
+        header('Location:  ./', true, 302);
+        die();
+    }
 }
 ?>
 <div class="row">
     <h2>Register</h2>
 </div>
+<?php if (!$error): ?>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+    <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    Something happened! :'(
+    </div>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+<?php endif; ?>
 <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">

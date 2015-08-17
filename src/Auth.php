@@ -15,12 +15,9 @@ class Auth
     {
     	$user = $this->db->getUser($username);
 
-    	if (($username === $user[0]['username']) && (password_verify($password, $user[0]['password']))) {
-    		//$this->addSession($username);
-    		session_regenerate_id();            
-            $_SESSION['SESS_USERNAME'] = $user[0]['username'];  
-            $_SESSION['SESS_ID'] = uniqid();            
-            session_write_close();
+    	if (($username === $user[0]['username']) && ($this->verifyHash($password, $user[0]['password']))) {
+    		$this->addSession($username);
+            $_SESSION['USERNAME'] = $username;
             return true;
    		} else {
    			return false;
@@ -32,8 +29,8 @@ class Auth
     }
     public function addUser($username, $password, $passwordRepeat)
     {
-    	$user = $this->db->getUser($username, $password);
-    	if (!($username === $user['username'])) {
+    	$user = $this->db->getUser($username);
+    	if (!($username === $user[0]['username'])) {
     		if ($password === $passwordRepeat) {
     			$passHash = $this->getHash($password);
 		    	$this->db->addUser($username, $passHash);
@@ -51,7 +48,7 @@ class Auth
     }
     public function addSession($username)
     {
-    	session_start();
+    	session_regenerate_id();
     	$session = $this->getSession();
     	$this->db->addSession($username, $session);
     }
